@@ -2,26 +2,28 @@
 import random
 
 weather_conditions = [
-    ("☀️ Sunny", 25),
-    ("☁️ Cloudy", 20),
-    ("🌧️ Rain", 20),
-    ("⛈️ Thunderstorm", 10),
-    ("❄️ Snow", 10),
-    ("💨 Windy", 10),
-    ("🌫️ Fog", 5)
+    ("☀️ Sunny", 25, "Great weather! Perfect day for a smooth drive."),
+    ("☁️ Cloudy", 20, "Cloudy skies today. Drive safe and stay alert."),
+    ("🌧️ Rain", 20, "It's raining. Turning on traction control. Drive carefully."),
+    ("⛈️ Thunderstorm", 10, "Storm detected! Reduce speed and keep headlights on."),
+    ("❄️ Snow", 10, "Snow on the road. Switching to winter safety mode."),
+    ("💨 Windy", 10, "Strong winds today. Keep both hands on the wheel."),
+    ("🌫️ Fog", 5, "Low visibility. Fog lights activated. Drive slowly.")
 ]
 
-# Pick one weather based on chance
-random_number = random.randint(1, 100)
+# Roll chance
+roll = random.randint(1, 100)
 
 current = 0
 
-for weather, chance in weather_conditions:
+print("🚗 Smart Car Assistant")
+print("----------------------")
+
+for weather, chance, message in weather_conditions:
     current += chance
 
-    if random_number <= current:
-        print("Today's Weather Forecast")
-        print("------------------------")
-        print(f"Condition: {weather}")
-        print(f"Chance Roll: {random_number}%")
+    if roll <= current:
+        print(f"Weather: {weather}")
+        print(f"System Message: {message}")
+        print(f"Safety Level: {chance}% probability")
         break
