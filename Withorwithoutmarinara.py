@@ -1,5 +1,3 @@
-# Gasoline Branch
-
 # =====================================
 # SMART CAR GAS & ALARM SYSTEM (PYTHON)
 # =====================================
@@ -11,16 +9,13 @@ import datetime
 # -------------------------------------
 # SIMULATED GAS SENSOR
 # -------------------------------------
-# This creates a fake gas level (0–100%)
-# In a real car, this would come from sensors
+# Generate fake gas level (5%–100%)
 gas_percent = random.randint(5, 100)
 
 
 # -------------------------------------
-# GAS STATION DATABASE (FAKE DATA)
+# GAS STATION DATABASE
 # -------------------------------------
-# Each station has:
-# name, price, snacks, drinks
 
 gas_stations = [
 
@@ -57,14 +52,13 @@ gas_stations = [
 # -------------------------------------
 # NORMAL ALARM TIME
 # -------------------------------------
-# Your regular wake-up time
+
 normal_alarm = datetime.time(7, 0)
 
 
 # -------------------------------------
 # FUNCTION: ADJUST TIME
 # -------------------------------------
-# Adds or subtracts minutes from a time
 
 def adjust_time(base_time, minutes):
 
@@ -81,21 +75,20 @@ def adjust_time(base_time, minutes):
 # -------------------------------------
 # FUNCTION: GAS → ALARM
 # -------------------------------------
-# Decides how early to wake up
 
 def gas_alarm_adjust(gas):
 
     if gas <= 15:
-        return 30      # Very low gas
+        return 30
 
     elif gas <= 30:
-        return 20      # Low gas
+        return 20
 
     elif gas <= 50:
-        return 10      # Medium gas
+        return 10
 
     else:
-        return 0       # Gas is good
+        return 0
 
 
 # -------------------------------------
@@ -128,13 +121,21 @@ else:
 
 
 # -------------------------------------
+# PICK 2 RANDOM GAS STATIONS
+# -------------------------------------
+
+# Select only 2 stations (no repeats)
+selected_stations = random.sample(gas_stations, 2)
+
+
+# -------------------------------------
 # SHOW GAS STATIONS
 # -------------------------------------
 
-print("\n🏪 Nearby Gas Stations")
-print("----------------------")
+print("\n🏪 Nearby Gas Stations (2 Shown)")
+print("-------------------------------")
 
-for station in gas_stations:
+for station in selected_stations:
 
     print(f"\n📍 {station['name']}")
     print(f"💲 Price: ${station['price']} / gallon")
@@ -149,14 +150,14 @@ for station in gas_stations:
 
 
 # -------------------------------------
-# FIND CHEAPEST STATION
+# FIND CHEAPEST OF THE 2
 # -------------------------------------
 
-cheapest = min(gas_stations, key=lambda x: x["price"])
+cheapest = min(selected_stations, key=lambda x: x["price"])
 
 
-print("\n💰 Cheapest Gas")
-print("--------------")
+print("\n💰 Cheapest Nearby Gas")
+print("---------------------")
 print(f"{cheapest['name']} - ${cheapest['price']} / gallon")
 
 
@@ -166,7 +167,7 @@ print(f"{cheapest['name']} - ${cheapest['price']} / gallon")
 
 offset = gas_alarm_adjust(gas_percent)
 
-# Negative = wake up earlier
+# Wake up earlier if needed
 new_alarm = adjust_time(normal_alarm, -offset)
 
 
